@@ -9,7 +9,7 @@ export default {
       var fd = new FormData();
       let request = new XMLHttpRequest(),
           signingURL = (typeof config.signingURL === "function") ?  config.signingURL(file) : config.signingURL;
-      request.open("POST", signingURL);
+      request.open("PUT", signingURL);
       request.onload = function () {
         if (request.status == 200) {
           resolve(JSON.parse(request.response));
@@ -56,7 +56,7 @@ export default {
     fd.append('file', file);
     return new Promise((resolve, reject) => {
       let request = new XMLHttpRequest();
-      request.open('POST', response.postEndpoint);
+      request.open('PUT', response.postEndpoint);
       request.onload = function () {
         if (request.status == 201) {
           var s3Error = (new window.DOMParser()).parseFromString(request.response, "text/xml");
